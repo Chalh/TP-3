@@ -1,4 +1,4 @@
-mport numpy as np
+import numpy as np
 from sklearn.pipeline import Pipeline
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.svm import LinearSVC

@@ -9,12 +9,14 @@
 
 import pandas as pd
 import sklearn
+import numpy as np
 
 from sklearn.metrics import recall_score
 from nltk.tokenize import word_tokenize
 from nltk.corpus import sentiwordnet as swn
 from nltk.corpus import stopwords as sw
 from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import average_precision_score
 
@@ -22,6 +24,7 @@ from nltk.corpus import wordnet as wn
 
 from nltk import WordNetLemmatizer
 from sklearn.naive_bayes import MultinomialNB
+from sklearn.linear_model import LogisticRegression
 from nltk import sent_tokenize
 from nltk import pos_tag
 from nltk.stem import PorterStemmer
@@ -93,56 +96,68 @@ def Tranforme_texte(texte_st, normalize):
     doc_res = ' '.join(doc_res)
     return doc_res
 
+def shuffle(matrix, target, test_proportion):
+    ratio = (matrix.shape[0]/test_proportion).__int__()
+    X_train = matrix[ratio:,:]
+    X_test =  matrix[:ratio,:]
+    Y_train = target[ratio:,:]
+    Y_test =  target[:ratio,:]
+    return X_train, X_test, Y_train, Y_test
 
 
+f_train = open("corpus/train.txt","r")
+f_test = open("corpus/devwithoutlabels.txt","r")
+
+data_train = pd.read_csv(f_train,sep="\t")
+data_test = pd.read_csv(f_test,sep="\t")
 
 
+data_train = data_train.reindex(np.random.permutation(data_train.index))
+data_test = data_test.reindex(np.random.permutation(data_test.index))
 
+Nb_col = 1000
 
-
-f = open("corpus/train.txt","r")
-
-data_train = pd.read_csv(f,sep="\t")
 
 X_train = []
-
-#print (data_train)
-
-feature_cols = data_train.label
-
-y = data_train.values[:10]
-
-X_train = []
-Y_train = feature_cols.values[:10]
-
-for i in y:
-    turn1 = i[1]
-    turn2 = i[2]
-    turn3 = i[3]
+Y_train = []
+xyz = data_train.values[:Nb_col]
+#xyz = data_train.values
+for i in xyz:
     phrase = " ".join(i[1:4])
     X_train.append(phrase)
+    Y_train.append(i[4])
+
+
 
 print("ok1")
-mindf = 2
+mindf = 1
 documents = []
-for sen in range(0, 10):
+for sen in X_train:
 #for sen in range(0, len(X_train)):
-    documents.append(Tranforme_texte(X_train[sen],3))
+    documents.append(Tranforme_texte(sen,3))
 
-from sklearn.linear_model import LogisticRegression
-
-# 2. instantiate model
-logreg = LogisticRegression()
 print("ok2")
 vectorizer = CountVectorizer(min_df=mindf, stop_words=stopwd)
+#vectorizer = TfidfVectorizer(min_df=mindf, stop_words=stopwd)
 X = vectorizer.fit_transform(documents).toarray()
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=0)
+#X_train, X_test, y_train, y_test = train_test_split(X, Y_train, test_size=0.1, random_state=0)
+
+X_train, X_test, y_train, y_test = shuffle(X, Y_train, 4)
+
 clf = MultinomialNB().fit(X_train, y_train)
 y_pred = clf.predict(X_test)
 
 # 3. fit
 #logreg.fit(X_train, y)
 
-average_precision_nb = average_precision_score(y_test, y_pred)
+#average_precision_nb = average_precision_score(y_test, y_pred)
 accuracy_score_nb = sklearn.metrics.accuracy_score(y_test, y_pred)
-recall_nb = recall_score(y_test, y_pred)
+#recall_nb = recall_score(y_test, y_pred)
+print(accuracy_score_nb)
+
+logreg = LogisticRegression().fit(X_train, y_train)
+y_pred = logreg.predict(X_test)
+#average_precision_lr = average_precision_score(y_test, y_pred)
+#recall_lg = recall_score(y_test, y_pred)
+accuracy_score_lr = sklearn.metrics.accuracy_score(y_test, y_pred)
+print(accuracy_score_lr)

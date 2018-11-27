@@ -100,8 +100,8 @@ def shuffle(matrix, target, test_proportion):
     ratio = (matrix.shape[0]/test_proportion).__int__()
     X_train = matrix[ratio:,:]
     X_test =  matrix[:ratio,:]
-    Y_train = target[ratio:,:]
-    Y_test =  target[:ratio,:]
+    Y_train = target[ratio:]
+    Y_test =  target[:ratio]
     return X_train, X_test, Y_train, Y_test
 
 
@@ -120,8 +120,8 @@ Nb_col = 1000
 
 X_train = []
 Y_train = []
-xyz = data_train.values[:Nb_col]
-#xyz = data_train.values
+#xyz = data_train.values[:Nb_col]
+xyz = data_train.values
 for i in xyz:
     phrase = " ".join(i[1:4])
     X_train.append(phrase)
@@ -139,7 +139,7 @@ for sen in X_train:
 print("ok2")
 vectorizer = CountVectorizer(min_df=mindf, stop_words=stopwd)
 #vectorizer = TfidfVectorizer(min_df=mindf, stop_words=stopwd)
-X = vectorizer.fit_transform(documents).toarray()
+X = vectorizer.fit_transform(documents)
 #X_train, X_test, y_train, y_test = train_test_split(X, Y_train, test_size=0.1, random_state=0)
 
 X_train, X_test, y_train, y_test = shuffle(X, Y_train, 4)

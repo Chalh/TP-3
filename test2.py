@@ -110,7 +110,7 @@ X_train = []
 
 feature_cols = data_train.label
 
-y = data_train.values
+y = data_train.values[:10]
 
 X_train = []
 Y_train = feature_cols.values[:10]

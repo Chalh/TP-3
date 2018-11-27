@@ -139,13 +139,14 @@ for i in xyz:
 
 print("ok1")
 mindf = 1
+normalisation = 1
 documents = []
 for sen in DX_train:
-    documents.append(Tranforme_texte(sen,3))
+    documents.append(Tranforme_texte(sen,normalisation))
 
 documents_test = []
 for sen in DX_test:
-    documents_test.append(Tranforme_texte(sen,3))
+    documents_test.append(Tranforme_texte(sen,normalisation))
 
 print("ok2")
 print("ok2")
@@ -153,7 +154,7 @@ vectorizer = CountVectorizer(min_df=mindf, stop_words=stopwd)
 #vectorizer = TfidfVectorizer(min_df=mindf, stop_words=stopwd)
 
 X = vectorizer.fit_transform(documents)
-XT = vectorizer.fit_transform(documents_test)
+XT = vectorizer.transform(documents_test)
 x_train, x_test, y_train, y_test = shuffle(X, DY_train, 4)
 
 clf = MultinomialNB().fit(x_train, y_train)
@@ -170,15 +171,17 @@ print(accuracy_score_nb)
 
 logreg = LogisticRegression().fit(x_train, y_train)
 y_pred = logreg.predict(x_test)
+dlgy_pred = logreg.predict(XT)
 #average_precision_lr = average_precision_score(y_test, y_pred)
 #recall_lg = recall_score(y_test, y_pred)
 accuracy_score_lr = sklearn.metrics.accuracy_score(y_test, y_pred)
 print(accuracy_score_lr)
 
-f = open('Out','w')
+f = open('Outnormalisation','w')
 stdout_old = sys.stdout
 sys.stdout = f
-print("NAIVE BAYES")
+print("turn1;turn 2;turn 3 ;NAIVE BAYES;LOGISTIC REG")
 i=0
-for x in dy_pred:
-    print(DX_test[i].__str__()+";"+x)
+for x in data_test.values:
+    print(x[1].__str__()+";"+x[2].__str__()+";"+x[3].__str__()+";"+dy_pred[i] +";"+dlgy_pred[i])
+    i +=1

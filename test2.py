@@ -139,7 +139,7 @@ for i in xyz:
 
 print("ok1")
 mindf = 1
-normalisation = 1
+normalisation = 2
 documents = []
 for sen in DX_train:
     documents.append(Tranforme_texte(sen,normalisation))
@@ -177,7 +177,7 @@ dlgy_pred = logreg.predict(XT)
 accuracy_score_lr = sklearn.metrics.accuracy_score(y_test, y_pred)
 print(accuracy_score_lr)
 
-f = open('Outnormalisation','w')
+f = open('Outnormalisationstem','w')
 stdout_old = sys.stdout
 sys.stdout = f
 print("turn1;turn 2;turn 3 ;NAIVE BAYES;LOGISTIC REG")

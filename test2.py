@@ -148,6 +148,7 @@ for sen in DX_test:
     documents_test.append(Tranforme_texte(sen,3))
 
 print("ok2")
+print("ok2")
 vectorizer = CountVectorizer(min_df=mindf, stop_words=stopwd)
 #vectorizer = TfidfVectorizer(min_df=mindf, stop_words=stopwd)
 

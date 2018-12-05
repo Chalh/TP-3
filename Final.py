@@ -105,6 +105,14 @@ def shuffle(matrix, target, test_proportion):
     Y_test =  target[:ratio]
     return X_train, X_test, Y_train, Y_test
 
+def shuffle_list(liste, target, test_proportion):
+    ratio = (len(liste)/test_proportion).__int__()
+    X_train = liste[ratio:,:]
+    X_test =  liste[:ratio,:]
+    Y_train = target[ratio:]
+    Y_test =  target[:ratio]
+    return X_train, X_test, Y_train, Y_test
+
 
 f_train = open("corpus/train.txt","r")
 f_test = open("corpus/devwithoutlabels.txt","r")
@@ -123,7 +131,9 @@ DX_train = []
 DY_train = []
 #xyz = data_train.values[:Nb_col]
 xyz = data_train.values
-for i in xyz:
+m_xyz = len(xyz)
+xyz_train = data_train.values
+for i in xyz_train:
     phrase = " ".join(i[1:4])
     DX_train.append(phrase)
     DY_train.append(i[4])

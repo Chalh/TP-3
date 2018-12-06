@@ -107,11 +107,11 @@ def shuffle(matrix, target, test_proportion):
 
 def shuffle_list(liste, target, test_proportion):
     ratio = (len(liste)/test_proportion).__int__()
-    X_train = liste[ratio:,:]
-    X_test =  liste[:ratio,:]
-    Y_train = target[ratio:]
-    Y_test =  target[:ratio]
-    return X_train, X_test, Y_train, Y_test
+    lx_train = liste[ratio:]
+    lx_test =  liste[:ratio]
+    ly_train = target[ratio:]
+    ly_test =  target[:ratio]
+    return lx_train, lx_test, ly_train, ly_test
 
 
 f_train = open("corpus/train.txt","r")
@@ -127,24 +127,16 @@ data_test = data_test.reindex(np.random.permutation(data_test.index))
 Nb_col = 1000
 
 
-DX_train = []
-DY_train = []
-#xyz = data_train.values[:Nb_col]
+X_train = []
+Y_train = []
+
 xyz = data_train.values
-m_xyz = len(xyz)
-xyz_train = data_train.values
-for i in xyz_train:
-    phrase = " ".join(i[1:4])
-    DX_train.append(phrase)
-    DY_train.append(i[4])
-
-DX_test = []
-
-#xyz = data_test.values[:Nb_col]
-xyz = data_test.values
 for i in xyz:
     phrase = " ".join(i[1:4])
-    DX_test.append(phrase)
+    X_train.append(phrase)
+    Y_train.append(i[4])
+
+DX_train, DX_test, DY_train, DY_test = shuffle_list(X_train, Y_train, 4)
 
 
 print("ok1")
@@ -159,35 +151,32 @@ for sen in DX_test:
     documents_test.append(Tranforme_texte(sen,normalisation))
 
 print("ok2")
-print("ok2")
+
 vectorizer = CountVectorizer(min_df=mindf, stop_words=stopwd)
 #vectorizer = TfidfVectorizer(min_df=mindf, stop_words=stopwd)
 
 X = vectorizer.fit_transform(documents)
 XT = vectorizer.transform(documents_test)
-x_train, x_test, y_train, y_test = shuffle(X, DY_train, 4)
 
-clf = MultinomialNB().fit(x_train, y_train)
-y_pred = clf.predict(x_test)
+clf = MultinomialNB().fit(X, DY_train)
 dy_pred = clf.predict(XT)
 
 # 3. fit
 #logreg.fit(X_train, y)
 
 #average_precision_nb = average_precision_score(y_test, y_pred)
-accuracy_score_nb = sklearn.metrics.accuracy_score(y_test, y_pred)
+accuracy_score_nb = sklearn.metrics.accuracy_score(DY_test, dy_pred)
 #recall_nb = recall_score(y_test, y_pred)
 print(accuracy_score_nb)
 
-logreg = LogisticRegression().fit(x_train, y_train)
-lgy_pred = logreg.predict(x_test)
+logreg = LogisticRegression().fit(X, DY_train)
 dlgy_pred = logreg.predict(XT)
 #average_precision_lr = average_precision_score(y_test, y_pred)
 #recall_lg = recall_score(y_test, y_pred)
-accuracy_score_lr = sklearn.metrics.accuracy_score(y_test, lgy_pred)
+accuracy_score_lr = sklearn.metrics.accuracy_score(DY_test, dlgy_pred)
 print(accuracy_score_lr)
 
-f = open('Outnormalisationstemaaa','w')
+f = open('abc','w')
 stdout_old = sys.stdout
 sys.stdout = f
 print("turn1-turn 2-turn 3 ;NAIVE BAYES;LOGISTIC REG")
@@ -197,6 +186,6 @@ i=0
 #    i +=1
 
 
-for x in x_test:
-    print(x.__str__()+";"+y_pred[i] +";"+lgy_pred[i])
+for x in DX_test:
+    print(x.__str__()+";"+DY_test[i]+";"+dy_pred[i] +";"+dlgy_pred[i])
     i +=1

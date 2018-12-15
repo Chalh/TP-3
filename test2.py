@@ -48,7 +48,7 @@ def lemmatize_texte( token, tag, normalize):
                     'N': wn.NOUN,
                     'V': wn.VERB,
                     'R': wn.ADV,
-                    'J': wn.ADJ
+                    'J': wn.ADsJ
                 }.get(tag[0])
 
                 return lemmatizer.lemmatize(token, tag)

@@ -48,7 +48,7 @@ def lemmatize_texte( token, tag, normalize):
                     'N': wn.NOUN,
                     'V': wn.VERB,
                     'R': wn.ADV,
-                    'J': wn.ADsJ
+                    'J': wn.ADJ
                 }.get(tag[0])
 
                 return lemmatizer.lemmatize(token, tag)
@@ -118,6 +118,62 @@ data_test = data_test.reindex(np.random.permutation(data_test.index))
 
 Nb_col = 1000
 
+def Generer_CSV_Entrain_propre(fichierin ="corpus/train.txt", fichierout="corpus/train_clean.txt",separt = "\t" ):
+    try:
+        inf_train = open(fichierin, "r")
+        outf_train = open(fichierout, "w")
+        xdata_train = pd.read_csv(inf_train, sep=separt)
+        xyz = xdata_train.values
+        outf_train.write("index\ttext\ttarget\n")
+        nb_id = 0
+        for i in xyz:
+            for j in range(1,4):
+                ligne = str(nb_id)+"\t"+str(i[j])+"\t"+str(i[4])+"\n"
+                nb_id = nb_id  + 1
+                outf_train.write(ligne.__str__())
+    except:
+        return False
+    return True
+
+def Generer_CSV_Entrain_propre2(fichierin ="corpus/train.txt", fichierout="corpus/train_clean.txt",separt = "\t" ):
+    try:
+        inf_train = open(fichierin, "r")
+        outf_train = open(fichierout, "w")
+        xdata_train = pd.read_csv(inf_train, sep=separt)
+        xyz = xdata_train.values
+        outf_train.write("index\ttext\ttarget\n")
+        nb_id = 0
+        for i in xyz:
+            ligne = str(nb_id)+"\t"+Tranforme_texte(" ".join(i[1:4]),2)+"\t"+str(i[4])+"\n"
+            nb_id = nb_id  + 1
+            outf_train.write(ligne.__str__())
+    except:
+        return False
+    return True
+
+csvin ="corpus/train.txt"
+csvout = "corpus/train_clean4.txt"
+
+#cleandata = Generer_CSV_Entrain_propre(csvin,csvout)
+cleandata = Generer_CSV_Entrain_propre2(csvin,csvout)
+#if cleandata is True:
+#    print("OK")
+#else:
+#    print("NOKhhhjhjhcdhcjdh")
+
+my_df = pd.read_csv(csvout,index_col=0,sep="\t")
+print(my_df.head())
+
+my_df.dropna(inplace=True)
+my_df.reset_index(drop=True,inplace=True)
+my_df.info()
+
+x = my_df.text
+y = my_df.target
+
+
+
+xdata_train = xdata_train.reindex(np.random.permutation(xdata_train.index))
 
 DX_train = []
 DY_train = []

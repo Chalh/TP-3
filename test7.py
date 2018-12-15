@@ -10,7 +10,7 @@ import numpy as np
 
 plt.style.use('fivethirtyeight')
 csv = 'clean_ch.csv'
-csv = "corpus/train_clean.tsxt"
+csv = "corpus/train_clean4.txt"
 my_df = pd.read_csv(csv,index_col=0, sep="\t")
 my_df.head()
 

@@ -265,7 +265,7 @@ for x in range(0,3):
 ########################################################################################################################
 lr = LogisticRegression()
 print("Logistic regression")
-n_attributs = np.arange(100,1001,100)
+n_attributs = np.arange(3000,30001,3000)
 
 
 #############################################################################################################
@@ -283,8 +283,8 @@ cvec = CountVectorizer()
 for i in range(0,3):
     print(csvout_untweet_AvecPonct[i])
     my_df = pd.read_csv(csvout_untweet_AvecPonct[i], index_col=0, sep="\t")
-    x = my_df.text[:1000]
-    y = my_df.target[:1000]
+    x = my_df.text
+    y = my_df.target
 
     SEED = 2000
     x_train, x_validation_and_test, y_train, y_validation_and_test = train_test_split(x, y, test_size=.02, random_state=SEED)
@@ -325,8 +325,8 @@ for i in range(0,3):
 for i in range(0,3):
     print(csvout_Troistweet_AvecPonct[i])
     my_df = pd.read_csv(csvout_Troistweet_AvecPonct[i], index_col=0, sep="\t")
-    x = my_df.text[:1000]
-    y = my_df.target[:1000]
+    x = my_df.text
+    y = my_df.target
 
     SEED = 2000
     x_train, x_validation_and_test, y_train, y_validation_and_test = train_test_split(x, y, test_size=.02, random_state=SEED)
@@ -371,8 +371,8 @@ print("Tester sans ponctuation (1T (NORM:1 a 3) et 3T (NORM:1 a 3))")
 for i in range(0,3):
     print(csvout_untweet_SansPonct[i])
     my_df = pd.read_csv(csvout_untweet_SansPonct[i], index_col=0, sep="\t")
-    x = my_df.text[:1000]
-    y = my_df.target[:1000]
+    x = my_df.text
+    y = my_df.target
 
     SEED = 2000
     x_train, x_validation_and_test, y_train, y_validation_and_test = train_test_split(x, y, test_size=.02, random_state=SEED)
@@ -413,8 +413,8 @@ for i in range(0,3):
 for i in range(0,3):
     print(csvout_Troistweet_SansPonct[i])
     my_df = pd.read_csv(csvout_Troistweet_SansPonct[i], index_col=0, sep="\t")
-    x = my_df.text[:1000]
-    y = my_df.target[:1000]
+    x = my_df.text
+    y = my_df.target
 
     SEED = 2000
     x_train, x_validation_and_test, y_train, y_validation_and_test = train_test_split(x, y, test_size=.02, random_state=SEED)
@@ -469,8 +469,8 @@ cvec = CountVectorizer()
 for i in range(0,3):
     print(csvout_untweet_AvecPonct[i])
     my_df = pd.read_csv(csvout_untweet_AvecPonct[i], index_col=0, sep="\t")
-    x = my_df.text[:1000]
-    y = my_df.target[:1000]
+    x = my_df.text
+    y = my_df.target
 
     SEED = 2000
     x_train, x_validation_and_test, y_train, y_validation_and_test = train_test_split(x, y, test_size=.02, random_state=SEED)
@@ -511,8 +511,8 @@ for i in range(0,3):
 for i in range(0,3):
     print(csvout_Troistweet_AvecPonct[i])
     my_df = pd.read_csv(csvout_Troistweet_AvecPonct[i], index_col=0, sep="\t")
-    x = my_df.text[:1000]
-    y = my_df.target[:1000]
+    x = my_df.text
+    y = my_df.target
 
     SEED = 2000
     x_train, x_validation_and_test, y_train, y_validation_and_test = train_test_split(x, y, test_size=.02, random_state=SEED)
@@ -557,8 +557,8 @@ print("Tester sans ponctuation (1T (NORM:1 a 3) et 3T (NORM:1 a 3))")
 for i in range(0,3):
     print(csvout_untweet_SansPonct[i])
     my_df = pd.read_csv(csvout_untweet_SansPonct[i], index_col=0, sep="\t")
-    x = my_df.text[:1000]
-    y = my_df.target[:1000]
+    x = my_df.text
+    y = my_df.target
 
     SEED = 2000
     x_train, x_validation_and_test, y_train, y_validation_and_test = train_test_split(x, y, test_size=.02, random_state=SEED)
@@ -599,8 +599,8 @@ for i in range(0,3):
 for i in range(0,3):
     print(csvout_Troistweet_SansPonct[i])
     my_df = pd.read_csv(csvout_Troistweet_SansPonct[i], index_col=0, sep="\t")
-    x = my_df.text[:1000]
-    y = my_df.target[:1000]
+    x = my_df.text
+    y = my_df.target
 
     SEED = 2000
     x_train, x_validation_and_test, y_train, y_validation_and_test = train_test_split(x, y, test_size=.02, random_state=SEED)
@@ -658,8 +658,8 @@ cvec = CountVectorizer()
 for i in range(0, 3):
     print(csvout_untweet_AvecPonct[i])
     my_df = pd.read_csv(csvout_untweet_AvecPonct[i], index_col=0, sep="\t")
-    x = my_df.text[:1000]
-    y = my_df.target[:1000]
+    x = my_df.text
+    y = my_df.target
 
     SEED = 2000
     x_train, x_validation_and_test, y_train, y_validation_and_test = train_test_split(x, y, test_size=.02,
@@ -704,8 +704,8 @@ for i in range(0, 3):
 for i in range(0, 3):
     print(csvout_Troistweet_AvecPonct[i])
     my_df = pd.read_csv(csvout_Troistweet_AvecPonct[i], index_col=0, sep="\t")
-    x = my_df.text[:1000]
-    y = my_df.target[:1000]
+    x = my_df.text
+    y = my_df.target
 
     SEED = 2000
     x_train, x_validation_and_test, y_train, y_validation_and_test = train_test_split(x, y, test_size=.02,
@@ -754,8 +754,8 @@ print("Tester sans ponctuation (1T (NORM:1 a 3) et 3T (NORM:1 a 3))")
 for i in range(0, 3):
     print(csvout_untweet_SansPonct[i])
     my_df = pd.read_csv(csvout_untweet_SansPonct[i], index_col=0, sep="\t")
-    x = my_df.text[:1000]
-    y = my_df.target[:1000]
+    x = my_df.text
+    y = my_df.target
 
     SEED = 2000
     x_train, x_validation_and_test, y_train, y_validation_and_test = train_test_split(x, y, test_size=.02,
@@ -800,8 +800,8 @@ for i in range(0, 3):
 for i in range(0, 3):
     print(csvout_Troistweet_SansPonct[i])
     my_df = pd.read_csv(csvout_Troistweet_SansPonct[i], index_col=0, sep="\t")
-    x = my_df.text[:1000]
-    y = my_df.target[:1000]
+    x = my_df.text
+    y = my_df.target
 
     SEED = 2000
     x_train, x_validation_and_test, y_train, y_validation_and_test = train_test_split(x, y, test_size=.02,
@@ -858,8 +858,8 @@ cvec = CountVectorizer()
 for i in range(0, 3):
     print(csvout_untweet_AvecPonct[i])
     my_df = pd.read_csv(csvout_untweet_AvecPonct[i], index_col=0, sep="\t")
-    x = my_df.text[:1000]
-    y = my_df.target[:1000]
+    x = my_df.text
+    y = my_df.target
 
     SEED = 2000
     x_train, x_validation_and_test, y_train, y_validation_and_test = train_test_split(x, y, test_size=.02,
@@ -904,8 +904,8 @@ for i in range(0, 3):
 for i in range(0, 3):
     print(csvout_Troistweet_AvecPonct[i])
     my_df = pd.read_csv(csvout_Troistweet_AvecPonct[i], index_col=0, sep="\t")
-    x = my_df.text[:1000]
-    y = my_df.target[:1000]
+    x = my_df.text
+    y = my_df.target
 
     SEED = 2000
     x_train, x_validation_and_test, y_train, y_validation_and_test = train_test_split(x, y, test_size=.02,
@@ -954,8 +954,8 @@ print("Tester sans ponctuation (1T (NORM:1 a 3) et 3T (NORM:1 a 3))")
 for i in range(0, 3):
     print(csvout_untweet_SansPonct[i])
     my_df = pd.read_csv(csvout_untweet_SansPonct[i], index_col=0, sep="\t")
-    x = my_df.text[:1000]
-    y = my_df.target[:1000]
+    x = my_df.text
+    y = my_df.target
 
     SEED = 2000
     x_train, x_validation_and_test, y_train, y_validation_and_test = train_test_split(x, y, test_size=.02,
@@ -1000,8 +1000,8 @@ for i in range(0, 3):
 for i in range(0, 3):
     print(csvout_Troistweet_SansPonct[i])
     my_df = pd.read_csv(csvout_Troistweet_SansPonct[i], index_col=0, sep="\t")
-    x = my_df.text[:1000]
-    y = my_df.target[:1000]
+    x = my_df.text
+    y = my_df.target
 
     SEED = 2000
     x_train, x_validation_and_test, y_train, y_validation_and_test = train_test_split(x, y, test_size=.02,

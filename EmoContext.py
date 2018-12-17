@@ -77,7 +77,6 @@ def Normaliser_mot( token, tag, normalize):
 #   - Enlever les signes de ponctuations
 def Tranforme_texte(texte_st, normalize, ponctuation=False):
     resultat=[]
-
     # Convertir en miniscule
     try:
         document_tok = sent_tokenize(str(texte_st).lower())
@@ -89,7 +88,7 @@ def Tranforme_texte(texte_st, normalize, ponctuation=False):
         #Enlever la ponctuation mais garder les emoticons (2 signes de ponc qui se suivent)
         if ponctuation is True:
             #On enlève seulement les signes de
-            sent_r = re.sub(r'((?<=\w)[^\s\w](?![^\s\w]))', '', sent)
+            sent = re.sub(r'((?<=\w)[^\s\w](?![^\s\w]))', '', sent)
 
 
         set_res = []

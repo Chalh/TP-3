@@ -89,7 +89,8 @@ def Tranforme_texte(texte_st, normalize, ponctuation=False):
         #Enlever la ponctuation mais garder les emoticons (2 signes de ponc qui se suivent)
         if ponctuation is True:
             #On enlève seulement les signes de
-            sent = re.sub(r'((?<=\w)[^\s\w](?![^\s\w]))|(\.\.*)|(\?\?*)|(\!\!*)', '', sent)
+            sent_r = re.sub(r'((?<=\w)[^\s\w](?![^\s\w]))', '', sent)
+
 
         set_res = []
         for token, tag in pos_tag(word_tokenize(sent)):

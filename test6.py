@@ -8,7 +8,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 plt.style.use('fivethirtyeight')
-from IPython import get_ipython
+
 
 #get_ipython().run_line_magic('matplotlib', 'inline')
 #get_ipython().run_line_magic('config', "InlineBackend.figure_format = 'retina'")
@@ -17,8 +17,13 @@ from IPython import get_ipython
 # In[3]:
 
 
-csv = 'clean_tweet.csv'
-my_df = pd.read_csv(csv,index_col=0)
+#csv = 'clean_tweet.csv'
+#my_df = pd.read_csv(csv,index_col=0)
+
+
+csv = "corpus/train_clean4.txt"
+my_df = pd.read_csv(csv,index_col=0, sep="\t")
+
 my_df.head()
 
 

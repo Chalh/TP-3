@@ -1,0 +1,2 @@
+- Enlever les ponctuations améliore la perfo
+- Stem+ lem améliore la perfo

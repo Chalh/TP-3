@@ -6,11 +6,13 @@ from time import time
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
+from sklearn.naive_bayes import MultinomialNB
 
 
 plt.style.use('fivethirtyeight')
 csv = 'clean_ch.csv'
-csv = "corpus/train_clean4.txt"
+csv = "corpus/train_cln_3T_nrm_2_AP.txt"
+csvresult = "corpus/train_cln_3T_nrm_2_AP_result.txt"
 my_df = pd.read_csv(csv,index_col=0, sep="\t")
 my_df.head()
 
@@ -51,14 +53,19 @@ def accuracy_summary(pipeline, x_train, y_train, x_test, y_test):
 
 cvec = CountVectorizer()
 lr = LogisticRegression()
-n_features = np.arange(10000,100001,10000)
+#lr =MultinomialNB()
+#n_features = np.arange(100,1001,100)
 
-def nfeature_accuracy_checker(vectorizer=cvec, n_features=n_features, stop_words=None, ngram_range=(1, 1), classifier=lr):
+n_features = np.arange(3000,30001,3000)
+
+def nfeature_accuracy_checker(vectorizer=cvec, n_features=n_features, stop_words=None, ngram_range=1, classifier=lr):
     result = []
     print( (classifier))
     print( "\n")
+    ngrame_rg = (1,ngram_range)
+
     for n in n_features:
-        vectorizer.set_params(stop_words=stop_words, max_features=n, ngram_range=ngram_range)
+        vectorizer.set_params(stop_words=stop_words, max_features=n, ngram_range=ngrame_rg)
         checker_pipeline = Pipeline([
             ('vectorizer', vectorizer),
             ('classifier', classifier)
@@ -73,8 +80,8 @@ tvec = TfidfVectorizer()
 
 
 feature_result_ug = nfeature_accuracy_checker(vectorizer=cvec)
-feature_result_bg = nfeature_accuracy_checker(vectorizer=cvec,ngram_range=(1, 2))
-feature_result_tg = nfeature_accuracy_checker(vectorizer=cvec,ngram_range=(1, 3))
+feature_result_bg = nfeature_accuracy_checker(vectorizer=cvec,ngram_range=2)
+feature_result_tg = nfeature_accuracy_checker(vectorizer=cvec,ngram_range=3)
 
 
 nfeatures_plot_tg = pd.DataFrame(feature_result_tg,columns=['nfeatures','validation_accuracy','train_test_time'])
@@ -82,8 +89,8 @@ nfeatures_plot_bg = pd.DataFrame(feature_result_bg,columns=['nfeatures','validat
 nfeatures_plot_ug = pd.DataFrame(feature_result_ug,columns=['nfeatures','validation_accuracy','train_test_time'])
 
 feature_result_ugt = nfeature_accuracy_checker(vectorizer=tvec)
-feature_result_bgt = nfeature_accuracy_checker(vectorizer=tvec,ngram_range=(1, 2))
-feature_result_tgt = nfeature_accuracy_checker(vectorizer=tvec,ngram_range=(1, 3))
+feature_result_bgt = nfeature_accuracy_checker(vectorizer=tvec,ngram_range=2)
+feature_result_tgt = nfeature_accuracy_checker(vectorizer=tvec,ngram_range=3)
 
 
 nfeatures_plot_tgt = pd.DataFrame(feature_result_tgt,columns=['nfeatures','validation_accuracy','train_test_time'])

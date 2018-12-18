@@ -89,8 +89,6 @@ def Tranforme_texte(texte_st, normalize, ponctuation=False):
         if ponctuation is True:
             #On enlève seulement les signes de
             sent = re.sub(r'((?<=\w)[^\s\w](?![^\s\w]))', '', sent)
-
-
         set_res = []
         for token, tag in pos_tag(word_tokenize(sent)):
             #Appliquer la normalisation
@@ -209,6 +207,9 @@ def Générer_fichier_resultat(nom_csv_atester, seprt="\t",nom_repertoirecible="
             nom_repertoirecible += "/SP"
         else:
             return False
+    if not os.path.exists(nom_repertoirecible):
+        os.makedirs(nom_repertoirecible)
+
 
     if "_1T_" in nom_csv_atester:
         nom_repertoirecible += "/1T"
@@ -218,13 +219,18 @@ def Générer_fichier_resultat(nom_csv_atester, seprt="\t",nom_repertoirecible="
         else:
             return False
 
+    if not os.path.exists(nom_repertoirecible):
+        os.makedirs(nom_repertoirecible)
 
     if nom_algo == "LR":
         algo = LogisticRegression()
-        nom_repertoirecible += "\LR"
+        nom_repertoirecible += "/LR"
     else:
         algo = MultinomialNB()
-        nom_repertoirecible += "\MB"
+        nom_repertoirecible += "/MB"
+
+    if not os.path.exists(nom_repertoirecible):
+        os.makedirs(nom_repertoirecible)
 
 
     if nom_vectzer == "C-VECT":
@@ -274,11 +280,11 @@ def Creer_fichier_train(csv_entree, file, nrm = 0,rmpct=False):
 csvin ="corpus/train.txt"
 
 #noms des fichies entrainement
-csvout_untweet_AvecPonct = ["train_cln_1T_nrm_1_AP.txt", "train_cln_1T_nrm_2_AP.txt", "train_cln_1T_nrm_3_AP.txt"]
-csvout_Troistweet_AvecPonct = ["train_cln_3T_nrm_1_AP.txt", "train_cln_3T_nrm_2_AP.txt", "train_cln_3T_nrm_3_AP.txt"]
+csvout_untweet_AvecPonct = ["train_cln_1T_nrm_0_AP.txt", "train_cln_1T_nrm_1_AP.txt", "train_cln_1T_nrm_2_AP.txt"]
+csvout_Troistweet_AvecPonct = ["train_cln_3T_nrm_0_AP.txt", "train_cln_3T_nrm_1_AP.txt", "train_cln_3T_nrm_2_AP.txt"]
 
-csvout_untweet_SansPonct = ["train_cln_1T_nrm_1_SP.txt", "train_cln_1T_nrm_2_SP.txt", "train_cln_1T_nrm_3_SP.txt"]
-csvout_Troistweet_SansPonct = ["train_cln_3T_nrm_1_SP.txt", "train_cln_3T_nrm_2_SP.txt", "train_cln_3T_nrm_3_SP.txt"]
+csvout_untweet_SansPonct = ["train_cln_1T_nrm_0_SP.txt", "train_cln_1T_nrm_1_SP.txt", "train_cln_1T_nrm_2_SP.txt"]
+csvout_Troistweet_SansPonct = ["train_cln_3T_nrm_0_SP.txt", "train_cln_3T_nrm_1_SP.txt", "train_cln_3T_nrm_2_SP.txt"]
 
 repertoire_corpus = "corpus"
 
@@ -290,7 +296,7 @@ repertoire_corpus = "corpus"
 
 
 for xtr in range(0,3):
-    Creer_fichier_train (csvin, repertoire_corpus + "/"+ csvout_untweet_AvecPonct[xtr],nrm = xtr)
+    Creer_fichier_train(csvin, repertoire_corpus + "/"+ csvout_untweet_AvecPonct[xtr],nrm = xtr)
     Creer_fichier_train(csvin, repertoire_corpus + "/" + csvout_Troistweet_AvecPonct[xtr], nrm=xtr)
     Creer_fichier_train(csvin, repertoire_corpus + "/" + csvout_untweet_SansPonct[xtr], nrm=xtr,rmpct=True)
     Creer_fichier_train(csvin, repertoire_corpus + "/" + csvout_Troistweet_SansPonct[xtr], nrm=xtr,rmpct=True)
@@ -302,12 +308,15 @@ for xtr in range(0,3):
 ########################################################################################################################
 
 n_attributs = np.arange(3000,30001,3000)
+#n_attributs = np.arange(100,1001,100)
 
 Algo_Name = ["LR","MB"]
 
 Vectorizer_Name = ["C-VECT","TF-IDF"]
 
 SW_test_Name = ["AvecSW","EnleverSW"]
+
+
 
 
 #################################

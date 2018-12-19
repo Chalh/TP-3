@@ -333,8 +333,8 @@ for i in range(0,3):
     for m_alg in Algo_Name:
         for m_vec in Vectorizer_Name:
             for stp_wdr in SW_test_Name:
-#                Générer_fichier_resultat(csvout_untweet_AvecPonct[i], seprt="\t", nom_repertoirecible=repertoire_corpus, stop_wd=stp_wdr,
-#                                         nom_algo=m_alg, nom_vectzer=m_vec)
+                Générer_fichier_resultat(csvout_untweet_AvecPonct[i], seprt="\t", nom_repertoirecible=repertoire_corpus, stop_wd=stp_wdr,
+                                         nom_algo=m_alg, nom_vectzer=m_vec)
 
                 Générer_fichier_resultat(csvout_Troistweet_AvecPonct[i], seprt="\t", nom_repertoirecible=repertoire_corpus, stop_wd=stp_wdr,
                                          nom_algo=m_alg, nom_vectzer=m_vec)
@@ -345,9 +345,9 @@ for i in range(0, 3):
     for m_alg in Algo_Name:
         for m_vec in Vectorizer_Name:
             for stp_wdr in SW_test_Name:
-#                Générer_fichier_resultat(csvout_untweet_SansPonct[i], seprt="\t", nom_repertoirecible=repertoire_corpus,
-#                                         stop_wd=stp_wdr,
-#                                         nom_algo=m_alg, nom_vectzer=m_vec)
+                Générer_fichier_resultat(csvout_untweet_SansPonct[i], seprt="\t", nom_repertoirecible=repertoire_corpus,
+                                         stop_wd=stp_wdr,
+                                         nom_algo=m_alg, nom_vectzer=m_vec)
 
                 Générer_fichier_resultat(csvout_Troistweet_SansPonct[i], seprt="\t", nom_repertoirecible=repertoire_corpus,
                                          stop_wd=stp_wdr,
